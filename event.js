@@ -16,5 +16,25 @@ var EventUtil = {
 		} else {
 			ele['on' + type] = null;
 		}
+	},
+	getEvent: function(e) {
+		return e || window.event;
+	},
+	getTarget: function(e) {
+		return e.target || e.srcElement;
+	},
+	preventDefault: function(e) {
+		if (e.preventDefault) {
+			e.preventDefault();
+		} else {
+			e.returnValue = false;
+		}
+	},
+	stopPropagation: function(e) {
+		if (e.stopPropagation) {
+			e.stopPropagation();
+		} else {
+			e.cancelBubble = true;
+		}
 	}
 }
