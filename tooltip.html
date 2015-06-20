@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="utf-8"></meta>
+		<style>
+			#box {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100px;
+				height:100px;
+				border: 1px solid #ccc;
+				display: none;
+			}
+		</style>
+		<script type="text/javascript" src="init.js" charset="utf-8"></script>
+		<script type="text/javascript" src="event.js" charset="utf-8"></script>
+		<script type="text/javascript" src="tooltip.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			whenReady(function() {
+				var ele = document.getElementById('link');
+				tooltip(ele, {});
+			})
+		</script>
+	</head>
+<body>
+	<a href="#" id="link" title="tooltip test link">tooltip</a>
+	<div id="box"><div>
+</body>
+</html>
