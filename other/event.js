@@ -37,4 +37,9 @@ var EventUtil = {
 			e.cancelBubble = true;
 		}
 	}
+	
+	
+	// BT9017: 只有 IE 支持 mouseenter 和 mouseleave 事件
+	// http://www.w3help.org/zh-cn/causes/BT9017
+	// http://www.w3help.org/tests/BT9017/mouseenter_and_mouseleave.html
 }

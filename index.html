@@ -1,19 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 	<head>
-		<title>index</title>
-		<script type="text/javascript" src="init.js" charset="utf-8"></script>
-		<script type="text/javascript">
-			whenReady(function() {
-				alert('hello lucas.');
+		<script src="lucas.js"></script>
+		<script>
+			$.ready(function() {
+				console.log('dom ready');
+				
+				/*
+				var iframes = document.getElementsByTagName('iframe');
+				iframes[0].onload = function() {
+					console.log('iframe onload')
+				}
+				*/
 			});
 			
-			whenReady(function() {
-				alert('bye lucas.');
-			})
+			$.ready(function() {
+				console.log('dom ready 2')
+			});
+			
+			window.onload = function() {
+				console.log('window onload');
+				
+				$.ready(function() {
+					console.log('readState complete');
+				});
+			}
+			
+
 		</script>
 	</head>
 	<body>
-	
+		<img src="http://www.bz55.com/uploads/allimg/150309/139-150309101A0.jpg" />
+
 	</body>
 </html>
