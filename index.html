@@ -20,12 +20,15 @@
 			
 			window.onload = function() {
 				console.log('window onload');
-				
-				$.ready(function() {
-					console.log('readState complete');
-				});
+				loadJS('load.js');
 			}
 			
+			function loadJS(url) {
+				var script = document.createElement('script');
+				script.src = url;
+				var head = document.getElementsByTagName('head')[0];
+				head.appendChild(script);
+			}
 
 		</script>
 	</head>

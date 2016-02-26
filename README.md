@@ -1,2 +1,3 @@
-# lucas
-javascript framework, 用于研究学习javascript 框架
+# lucas 
+轻量级 javascript 框架
+2016-02-26 dom ready
