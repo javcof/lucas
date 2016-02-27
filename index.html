@@ -21,6 +21,26 @@
 			window.onload = function() {
 				console.log('window onload');
 				loadJS('load.js');
+				
+				var ele = document.getElementById('aa');
+				$.bind(ele, 'click', function() {
+					console.log('event click 1');
+				});
+				$.bind(ele, 'click', function() {
+					console.log('event click 2');
+				});
+				$.bind(ele, 'click', function() {
+					console.log('event click 3');
+				});
+				$.bind(ele, 'click', function() {
+					console.log('event click 4');
+				});
+				$.bind(ele, 'click', function() {
+					console.log('event click 5');
+				});
+				$.bind(ele, 'click', function() {
+					console.log('event click 6');
+				});
 			}
 			
 			function loadJS(url) {
@@ -29,18 +49,10 @@
 				var head = document.getElementsByTagName('head')[0];
 				head.appendChild(script);
 			}
-			
-			/*
-			$.ready(function() {
-				console.log($.query('#aa'));
-				console.log($.queryAll('.bb'));
-			});
-			*/
-
 		</script>
 	</head>
 	<body>
-		<div id="aa"></div>
+		<div id="aa">click me</div>
 		<div class="bb"></div>
 		<img src="http://www.bz55.com/uploads/allimg/150309/139-150309101A0.jpg" />
 	</body>

@@ -6,7 +6,9 @@
 	if (document.addEventListener) {
 		document.addEventListener('DOMContentLoaded', fireReady, false);
 	} else {
-		doScroll();
+		if (html.doScroll) {
+			doScroll();
+		}
 	}
 	
 	function doScroll() {
@@ -37,12 +39,30 @@
 	
 	Lucas.query = function(selectors, context) {
 		context = context || document;
-		return context.querySelector(selectors);
+		if (context.querySelector) {
+			return context.querySelector(selectors);
+		}
+		return null;
 	}
 	
 	Lucas.queryAll = function(selectors, context) {
 		context = context || document;
-		return context.querySelectorAll(selectors);
+		if (context.querySelectorAll) {
+			return context.querySelectorAll(selectors);
+		}
+		return null;
+	}
+	
+	Lucas.bind = function(element, type, handler) {
+		if (element.addEventListener) {
+			element.addEventListener(type, handler, false);
+		} else if (element.attachEvent) {
+			// SD9011: 事件模型在各浏览器中存在差异
+			// http://www.w3help.org/zh-cn/causes/SD9011
+			element.attachEvent('on' + type, handler);
+		} else {
+			element['on' + type] = handler;
+		}
 	}
 	
 	window.$ = window.Lucas = Lucas;
