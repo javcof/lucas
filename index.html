@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<script src="lucas.js"></script>
+		<script src="lucas.js" charset="utf-8"></script>
 		<script>
 			$.ready(function() {
 				console.log('dom ready');
@@ -22,10 +22,16 @@
 				console.log('window onload');
 				loadJS('load.js');
 				
-				var ele = document.getElementById('aa');
-				$.bind(ele, 'click', function() {
+				var ele = document.getElementById('cc');
+				$.bind(ele, 'click', function(e) {
+					e.preventDefault();
 					console.log('event click 1');
+					console.log('event e: ' + Object.prototype.toString.call(this));
+					console.log('event handler this: ' + Object.prototype.toString.call(this));
+					alert(e);
+					alert(this);
 				});
+				/*
 				$.bind(ele, 'click', function() {
 					console.log('event click 2');
 				});
@@ -41,6 +47,7 @@
 				$.bind(ele, 'click', function() {
 					console.log('event click 6');
 				});
+				*/
 			}
 			
 			function loadJS(url) {
@@ -54,6 +61,9 @@
 	<body>
 		<div id="aa">click me</div>
 		<div class="bb"></div>
+		<div>
+			<a id="cc" href="https://www.baidu.com/" target="_blank">click me</a>
+		</div>
 		<img src="http://www.bz55.com/uploads/allimg/150309/139-150309101A0.jpg" />
 	</body>
 </html>

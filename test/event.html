@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ie event fix test</title>
+<style type="text/css">
+	#aa {
+		width: 100px; height: 100px; 
+		background: #f00;
+	}
+	#bb {
+		width: 200px; height: 200px; 
+		background: #ff0;
+	}
+</style>
+<script src="../lucas.js" charset="utf-8"></script>
+<script>
+	$.ready(function() {
+		var aa = document.getElementById('aa');
+		$.bind(aa, 'click', function(e) {
+			e.stopPropagation();
+			console.log('aa click');
+			console.log('event.target: ' + e.target);
+			console.log('event.currentTarget: ' + e.currentTarget);
+		});
+		
+		/*
+		var bb = document.getElementById('bb');
+		$.bind(bb, 'click', function(e) {
+			console.log('bb click');
+			console.log('event.target: ' + e.target);
+			console.log('event.currentTarget: ' + e.currentTarget);
+		});
+		*/
+		
+		var cc = document.getElementById('cc');
+		$.bind(cc, 'click', function(e) {
+			console.log('cc click');
+			console.log('event.target: ' + e.target);
+			console.log('event.currentTarget: ' + e.currentTarget);
+		});
+		
+	});
+</script>
+</head>
+
+<body id="cc">
+	<div id="bb">
+		<p id="aa"></p>
+	</div>
+</body>
+</html>
