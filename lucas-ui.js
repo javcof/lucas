@@ -1,6 +1,7 @@
 (function() {
 	Lucas.ui = {};
 	
+	Lucas.ui.GUID = 0;
 	Lucas.ui.tooltip = function (elements) {
 		for (var i = 0; i < elements.length; i++) {
 			var ele = elements[i];
