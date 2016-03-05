@@ -7,6 +7,9 @@
 		margin:0;padding:0;
 		font-size:12px;
 	}
+	p {
+		line-height:24px;
+	}
 	div.tooltip {
 		position: absolute;
 		top: 0; left: 0;
@@ -14,7 +17,6 @@
 		border: 1px solid #f00;
 		padding:0 2px;
 		background:#fff;
-		display: none;
 	}
 </style>
 <script src="../lucas.js" charset="utf-8"></script>
@@ -39,8 +41,4 @@ will also style tooltips accordingly.</p>
 <p>Tooltips are also useful for form elements, to show some additional information in the context of each field.</p>
 <p><label for="age">Your age:</label><input id="age" title="We ask for your age only for statistical purposes."></p>
 <p>Hover the field to see the tooltip.</p>
-
-
-<div class="tooltip" id="ui-tooltip-1"></div>
-</body>
 </html>
