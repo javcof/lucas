@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lucas-ui tooltip test</title>
+<style type="text/css">
+	* {
+		margin:0;padding:0;
+		font-size:12px;
+	}
+	div.tooltip {
+		position: absolute;
+		top: 0; left: 0;
+		width: auto; heigth: 24px; line-height: 24px;
+		border: 1px solid #f00;
+		padding:0 2px;
+		background:#fff;
+		display: none;
+	}
+</style>
+<script src="../lucas.js" charset="utf-8"></script>
+<script src="../lucas-ui.js" charset="utf-8"></script>
+<script>
+	$.ready(function() {
+		var eles = document.getElementsByTagName('a');
+		$.ui.tooltip(eles);
+		
+		var inputs = document.getElementsByTagName('input');
+		$.ui.tooltip(inputs);
+	});
+</script>
+</head>
+
+<body>
+<p><a href="#" title="That&apos;s what this widget is">Tooltips</a> can be attached to any element. When you hover
+the element with your mouse, the title attribute is displayed in a little box next to the element, just like a native tooltip.</p>
+<p>But as it's not a native tooltip, it can be styled. Any themes built with
+<a href="http://jqueryui.com/themeroller/" title="ThemeRoller: jQuery UI&apos;s theme builder application">ThemeRoller</a>
+will also style tooltips accordingly.</p>
+<p>Tooltips are also useful for form elements, to show some additional information in the context of each field.</p>
+<p><label for="age">Your age:</label><input id="age" title="We ask for your age only for statistical purposes."></p>
+<p>Hover the field to see the tooltip.</p>
+
+
+<div class="tooltip" id="ui-tooltip-1"></div>
+</body>
+</html>
