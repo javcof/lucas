@@ -1,8 +1,12 @@
-(function() {
-	Lucas.ui = {};
+(function($) {
+	$.ui = {};
 	
-	Lucas.ui.GUID = 0;
-	Lucas.ui.tooltip = function (elements) {
+	$.ui.GUID = 0;
+	$.ui.tooltip = function (elements, options) {
+		var settings = {
+			offset: 24
+		};
+		$.extend(settings, options);
 		for (var i = 0; i < elements.length; i++) {
 			var ele = elements[i];
 			$.bind(ele, 'mouseover', function(e) {
@@ -16,7 +20,7 @@
 				
 				ui.setAttribute('id', this.getAttribute('ui-tooltip-id'));
 				ui.className = 'tooltip';
-				ui.style.top = target.offsetTop + 24 + 'px';
+				ui.style.top = target.offsetTop + settings.offset + 'px';
 				ui.style.left = target.offsetLeft + 'px';
 				ui.appendChild(document.createTextNode(title));
 				
@@ -33,4 +37,4 @@
 			});
 		}
 	}
-})();
+})(Lucas);

@@ -24,7 +24,7 @@
 <script>
 	$.ready(function() {
 		var eles = document.getElementsByTagName('a');
-		$.ui.tooltip(eles);
+		$.ui.tooltip(eles, { offset: -28 });
 		
 		var inputs = document.getElementsByTagName('input');
 		$.ui.tooltip(inputs);
