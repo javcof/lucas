@@ -79,6 +79,22 @@
 		}
 	}
 	
+	Lucas.offset = function(element) {
+		var pos = { 
+			top: element.offsetTop, 
+			left: element.offsetLeft 
+		};
+		// https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLElement/offsetParent
+		// HTMLElement.offsetParent 是一个只读属性，返回一个指向最近的（closest，指包含层级上的最近）包含该元素的定位元素。
+		var parent = element.offsetParent;
+		while (parent) {
+			pos.top += parent.offsetTop;
+			pos.left += parent.offsetLeft;
+			parent = parent.offsetParent;
+		}
+		return pos;
+	}
+	
 	Lucas.extend = function(target, source) {
 		for (var key in source) {
 			target[key] = source[key];

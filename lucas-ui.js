@@ -11,7 +11,8 @@
 			var ele = elements[i];
 			$.bind(ele, 'mouseover', function(e) {
 				var title = this.getAttribute('title'), 
-					target = e.target,
+					target = e.target
+					targetOffset = $.offset(target),
 					ui = document.createElement('div');
 
 				this.setAttribute('title', '');
@@ -20,8 +21,8 @@
 				
 				ui.setAttribute('id', this.getAttribute('ui-tooltip-id'));
 				ui.className = 'tooltip';
-				ui.style.top = target.offsetTop + settings.offset + 'px';
-				ui.style.left = target.offsetLeft + 'px';
+				ui.style.top = targetOffset.top + settings.offset + 'px';
+				ui.style.left = targetOffset.left + 'px';
 				ui.appendChild(document.createTextNode(title));
 				
 				document.body.appendChild(ui);
