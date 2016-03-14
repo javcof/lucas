@@ -66,12 +66,22 @@
 				// 使用非标准的 element.attachEvent() 方法绑定时间监听器。
 				// 在该模型中，事件对象有一个 srcElement 属性，等价于target 属性。
 				e.target = e.srcElement;
+				
+				// https://developer.mozilla.org/zh-CN/docs/Web/API/event.relatedTarget
+				// https://developer.mozilla.org/en-US/docs/Web/Events/mouseenter
+				// how to use mouseover to simulate the principle of event delegation for the mouseenter event.
+				if (type === 'mouseover') {
+					e.relatedTarget = e.fromElement;
+				} else if (type === 'mouseout') {
+					e.relatedTarget = e.toElement;
+				}
+				
 				e.preventDefault = function() {
 					this.returnValue = false;
 				}
 				e.stopPropagation = function() {
 					this.cancelBubble = true;
-				}				
+				}			
 				handler.call(element, e);
 			});
 		} else {
