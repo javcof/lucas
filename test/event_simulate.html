@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>simulate onmouseenter or onmouseleave</title>
+<style type="text/css">
+	* {
+		margin:0;padding:0;
+	}
+	#aa {
+		width: 100px; height: 100px;
+		background: #f00;
+	}
+	#bb {
+		width: 200px; height: 200px;
+		background: #ff0;
+	}
+</style>
+<script src="../lucas.js" charset="utf-8"></script>
+<script>
+	$.ready(function() {
+		var bb = document.getElementById('bb');
+		$.bind(bb, 'mouseover', function(e) {
+			if (e.relatedTarget !== this && !$.contains(this, e.relatedTarget)) {
+				console.log('bb mouseover');
+				console.log('bb e.target = ' + e.target.nodeName);
+				console.log('bb e.relatedTarget = ' + e.relatedTarget.nodeName);
+			}
+		});
+		$.bind(bb, 'mouseout', function(e) {
+			if (e.relatedTarget !== this && !$.contains(this, e.relatedTarget)) {
+				console.log('bb mouseout');
+				console.log('bb e.target = ' + e.target.nodeName);
+				console.log('bb e.relatedTarget = ' + e.relatedTarget.nodeName);
+			}
+		});
+	});
+</script>
+</head>
+
+<body id="cc">
+	<div id="bb">
+		<p id="aa"></p>
+	</div>
+</body>
+</html>

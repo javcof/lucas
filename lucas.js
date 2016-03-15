@@ -105,6 +105,20 @@
 		return pos;
 	}
 	
+	Lucas.contains = function(parent, node) {
+		if (parent === node) return true;
+		if (parent.contains) {
+			// 如果parent节点和node节点是同一个节点，返回 true。
+			// https://developer.mozilla.org/zh-CN/docs/Web/API/Node/contains
+			return parent.contains(node);
+		} else if (parent.compareDocumentPosition) {
+			// 如果parent节点和node节点是同一个节点，返回 0。
+			// https://developer.mozilla.org/zh-CN/docs/Web/API/Node/compareDocumentPosition
+			return !!(parent.compareDocumentPosition(node) & 16);
+		}
+		return false;
+	}
+	
 	Lucas.extend = function(target, source) {
 		for (var key in source) {
 			target[key] = source[key];
