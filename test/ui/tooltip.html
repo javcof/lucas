@@ -3,25 +3,6 @@
 <head>
 <title>Lucas-ui tooltip test</title>
 <style type="text/css">
-	* {
-		margin:0;padding:0;
-		font-size:12px;
-	}
-	#aa {
-		width:800px; height:600px; border:1px solid #f00;
-		margin:10px auto;
-	}
-	#bb {
-		width:600px; height:400px; border:1px solid #ff0;
-		margin:10px auto;
-	}
-	#cc {
-		width:400px; height:300px; border:1px solid #f0f;
-		margin:10px auto;
-	}
-	p {
-		line-height:24px;
-	}
 	div.tooltip {
 		position: absolute;
 		top: 0; left: 0;
@@ -32,8 +13,8 @@
 	}
 	
 </style>
-<script src="../lucas.js" charset="utf-8"></script>
-<script src="../lucas-ui.js" charset="utf-8"></script>
+<script src="../../lucas.js" charset="utf-8"></script>
+<script src="../../lucas-ui.js" charset="utf-8"></script>
 <script>
 	$.ready(function() {
 		var eles = document.getElementsByTagName('a');
@@ -46,9 +27,6 @@
 </head>
 
 <body>
-<div id="aa">
-<div id="bb">
-<div id="cc">
 <p><a href="#" title="That&apos;s what this widget is">Tooltips</a> can be attached to any element. When you hover
 the element with your mouse, the title attribute is displayed in a little box next to the element, just like a native tooltip.</p>
 <p>But as it's not a native tooltip, it can be styled. Any themes built with
@@ -57,7 +35,4 @@ will also style tooltips accordingly.</p>
 <p>Tooltips are also useful for form elements, to show some additional information in the context of each field.</p>
 <p><label for="age">Your age:</label><input id="age" title="We ask for your age only for statistical purposes."></p>
 <p>Hover the field to see the tooltip.</p>
-</div>
-</div>
-</div>
 </html>
