@@ -125,5 +125,36 @@
 		}
 	}
 	
+	Lucas.siblings = function(element) {
+		var prev = element.previousSibling, 
+			next = element.nextSibling, 
+			eles = [];
+		while (prev) {
+			if (prev.nodeType === 1) {
+				eles.unshift(prev);
+			}
+			prev = prev.previousSibling;
+		}
+		while (next) {
+			if (next.nodeType === 1) {
+				eles.push(next);
+			}
+			next = next.nextSibling;
+		}
+		return eles;
+	}
+	
+	Lucas.show = function(elements) {
+		for (var i = 0; i < elements.length; i++) {
+			elements[i].style.display = 'block';
+		}
+	}
+	
+	Lucas.hide = function(elements) {
+		for (var i = 0; i < elements.length; i++) {
+			elements[i].style.display = 'none';
+		}
+	}
+	
 	window.$ = window.Lucas = Lucas;
 })();

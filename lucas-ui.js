@@ -41,35 +41,31 @@
 	
 	$.ui.tabs = function (elements, options) {
 		var settings = {
+			event: 'click',
+			activate: function(e) {
+				e.preventDefault();
+				if (e.target && 
+					e.target.nodeName === 'A' && 
+					e.target.hash) {
+					var panel = document.getElementById(e.target.hash.slice(1));
+					if (panel) {
+						$.hide($.siblings(e.currentTarget));
+						$.show([panel]);
+					}
+				}
+				console.log('event: ' + this.nodeName + ', event.target: ' + e.target.nodeName + ', event.currentTarget: ' + e.currentTarget.nodeName + '');
+			}
 		};
 		$.extend(settings, options);
 		for (var i = 0; i < elements.length; i++) {
 			var tab = elements[i], 
-				bar = tab.firstElementChild;
-			if (bar) {
-				bar.setAttribute('ui-tabs-for', 'bar');
-				$.bind(bar, 'click', function(e) {
-					e.preventDefault();
-					if (e.target && 
-						e.target.nodeName === 'A' && 
-						e.target.hash) {
-						var panel = document.getElementById(e.target.hash.slice(1));
-						if (panel) {
-							hidePanel(bar.nextElementSibling);
-							panel.style.display = 'block';
-						}
-					}
-					console.log('event: ' + this.nodeName + ', event.target: ' + e.target.nodeName + ', event.currentTarget: ' + e.currentTarget.nodeName + '');
-				});
+				list = tab.firstElementChild,
+				panels = $.siblings(list);
+			if (list) {
+				list.setAttribute('ui-tabs-role', 'tablist');
+				$.bind(list, settings.event, settings.activate);
 			}
-			hidePanel(bar.nextElementSibling);
-			
-			function hidePanel(panel) {
-				while (panel) {
-					panel.style.display = 'none';
-					panel = panel.nextElementSibling;
-				}
-			}
+			$.hide(panels);
 		}
 	}
 })(Lucas);
