@@ -38,4 +38,38 @@
 			});
 		}
 	}
+	
+	$.ui.tabs = function (elements, options) {
+		var settings = {
+		};
+		$.extend(settings, options);
+		for (var i = 0; i < elements.length; i++) {
+			var tab = elements[i], 
+				bar = tab.firstElementChild;
+			if (bar) {
+				bar.setAttribute('ui-tabs-for', 'bar');
+				$.bind(bar, 'click', function(e) {
+					e.preventDefault();
+					if (e.target && 
+						e.target.nodeName === 'A' && 
+						e.target.hash) {
+						var panel = document.getElementById(e.target.hash.slice(1));
+						if (panel) {
+							hidePanel(bar.nextElementSibling);
+							panel.style.display = 'block';
+						}
+					}
+					console.log('event: ' + this.nodeName + ', event.target: ' + e.target.nodeName + ', event.currentTarget: ' + e.currentTarget.nodeName + '');
+				});
+			}
+			hidePanel(bar.nextElementSibling);
+			
+			function hidePanel(panel) {
+				while (panel) {
+					panel.style.display = 'none';
+					panel = panel.nextElementSibling;
+				}
+			}
+		}
+	}
 })(Lucas);
