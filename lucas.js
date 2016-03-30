@@ -89,72 +89,70 @@
 		}
 	}
 	
-	Lucas.offset = function(element) {
-		var pos = { 
-			top: element.offsetTop, 
-			left: element.offsetLeft 
-		};
-		// https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLElement/offsetParent
-		// HTMLElement.offsetParent 是一个只读属性，返回一个指向最近的（closest，指包含层级上的最近）包含该元素的定位元素。
-		var parent = element.offsetParent;
-		while (parent) {
-			pos.top += parent.offsetTop;
-			pos.left += parent.offsetLeft;
-			parent = parent.offsetParent;
-		}
-		return pos;
-	}
-	
-	Lucas.contains = function(parent, node) {
-		if (parent === node) return true;
-		if (parent.contains) {
-			// 如果parent节点和node节点是同一个节点，返回 true。
-			// https://developer.mozilla.org/zh-CN/docs/Web/API/Node/contains
-			return parent.contains(node);
-		} else if (parent.compareDocumentPosition) {
-			// 如果parent节点和node节点是同一个节点，返回 0。
-			// https://developer.mozilla.org/zh-CN/docs/Web/API/Node/compareDocumentPosition
-			return !!(parent.compareDocumentPosition(node) & 16);
-		}
-		return false;
-	}
-	
 	Lucas.extend = function(target, source) {
 		for (var key in source) {
 			target[key] = source[key];
 		}
 	}
 	
-	Lucas.siblings = function(element) {
-		var prev = element.previousSibling, 
-			next = element.nextSibling, 
-			eles = [];
-		while (prev) {
-			if (prev.nodeType === 1) {
-				eles.unshift(prev);
+	Lucas.extend(Lucas, {
+		show: function(elements) {
+			for (var i = 0; i < elements.length; i++) {
+				elements[i].style.display = 'block';
 			}
-			prev = prev.previousSibling;
-		}
-		while (next) {
-			if (next.nodeType === 1) {
-				eles.push(next);
+		},
+		hide: function(elements) {
+			for (var i = 0; i < elements.length; i++) {
+				elements[i].style.display = 'none';
 			}
-			next = next.nextSibling;
+		},
+		siblings: function(element) {
+			var prev = element.previousSibling, 
+				next = element.nextSibling, 
+				eles = [];
+			while (prev) {
+				if (prev.nodeType === 1) {
+					eles.unshift(prev);
+				}
+				prev = prev.previousSibling;
+			}
+			while (next) {
+				if (next.nodeType === 1) {
+					eles.push(next);
+				}
+				next = next.nextSibling;
+			}
+			return eles;
+		},
+		contains: function(parent, node) {
+			if (parent === node) return true;
+			if (parent.contains) {
+				// 如果parent节点和node节点是同一个节点，返回 true。
+				// https://developer.mozilla.org/zh-CN/docs/Web/API/Node/contains
+				return parent.contains(node);
+			} else if (parent.compareDocumentPosition) {
+				// 如果parent节点和node节点是同一个节点，返回 0。
+				// https://developer.mozilla.org/zh-CN/docs/Web/API/Node/compareDocumentPosition
+				return !!(parent.compareDocumentPosition(node) & 16);
+			}
+			return false;
+		},
+		offset: function(element) {
+			var pos = { 
+				top: element.offsetTop, 
+				left: element.offsetLeft 
+			};
+			// https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLElement/offsetParent
+			// HTMLElement.offsetParent 是一个只读属性，返回一个指向最近的（closest，指包含层级上的最近）包含该元素的定位元素。
+			var parent = element.offsetParent;
+			while (parent) {
+				pos.top += parent.offsetTop;
+				pos.left += parent.offsetLeft;
+				parent = parent.offsetParent;
+			}
+			return pos;
 		}
-		return eles;
-	}
-	
-	Lucas.show = function(elements) {
-		for (var i = 0; i < elements.length; i++) {
-			elements[i].style.display = 'block';
-		}
-	}
-	
-	Lucas.hide = function(elements) {
-		for (var i = 0; i < elements.length; i++) {
-			elements[i].style.display = 'none';
-		}
-	}
-	
+	});
+
 	window.$ = window.Lucas = Lucas;
 })();
