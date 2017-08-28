@@ -13,7 +13,7 @@
 	
 	function doScroll() {
 		try {
-			console.log('html.doScroll');
+			// console.log('html.doScroll');
 			html.doScroll('left');
 			fireReady();
 		} catch(e) {
@@ -35,6 +35,31 @@
 			return;
 		}
 		readyFn.push(fn);
+	}
+	
+	Lucas.getElementsByClassName = function (names, context) {
+		var eles = [];
+		context = context || document;
+		if (document.getElementsByClassName) {
+			// https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByClassName
+			eles = context.getElementsByClassName(names);
+		} else {
+			// https://developer.mozilla.org/en-US/docs/Web/API/Element/getElementsByTagName
+			var alls = context.getElementsByTagName('*');
+			for (var i = 0; i < alls.length; i++) {
+				var className = alls[i].className;
+				if (className.length > 0) {
+					var classArray = className.split(' ');
+					for (var j = 0; j < classArray.length; j++) {
+						if (names === classArray[j]) {
+							eles.push(alls[i]);
+							break;
+						}
+					}
+				}
+			}
+		}
+		return eles;
 	}
 	
 	Lucas.query = function(selectors, context) {
@@ -63,7 +88,7 @@
 				e = e || window.event;
 				// https://developer.mozilla.org/zh-CN/docs/Web/API/Event/target
 				// 在 IE6-8 中，事件模型与标准不同。
-				// 使用非标准的 element.attachEvent() 方法绑定时间监听器。
+				// 使用非标准的 element.attachEvent() 方法绑定事件监听器。
 				// 在该模型中，事件对象有一个 srcElement 属性，等价于target 属性。
 				e.target = e.srcElement;
 				

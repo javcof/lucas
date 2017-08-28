@@ -4,66 +4,17 @@
 		<script src="lucas.js" charset="utf-8"></script>
 		<script>
 			$.ready(function() {
-				console.log('dom ready');
-				
-				/*
-				var iframes = document.getElementsByTagName('iframe');
-				iframes[0].onload = function() {
-					console.log('iframe onload')
-				}
-				*/
+				var eles, body;
+				body = document.getElementsByTagName('body')[0];
+				eles = $.getElementsByClassName('red', body);
+				// console.log(eles);
+				alert(eles);
 			});
-			
-			$.ready(function() {
-				console.log('dom ready 2')
-			});
-			
-			window.onload = function() {
-				console.log('window onload');
-				loadJS('load.js');
-				
-				var ele = document.getElementById('cc');
-				$.bind(ele, 'click', function(e) {
-					e.preventDefault();
-					console.log('event click 1');
-					console.log('event e: ' + Object.prototype.toString.call(this));
-					console.log('event handler this: ' + Object.prototype.toString.call(this));
-					alert(e);
-					alert(this);
-				});
-				/*
-				$.bind(ele, 'click', function() {
-					console.log('event click 2');
-				});
-				$.bind(ele, 'click', function() {
-					console.log('event click 3');
-				});
-				$.bind(ele, 'click', function() {
-					console.log('event click 4');
-				});
-				$.bind(ele, 'click', function() {
-					console.log('event click 5');
-				});
-				$.bind(ele, 'click', function() {
-					console.log('event click 6');
-				});
-				*/
-			}
-			
-			function loadJS(url) {
-				var script = document.createElement('script');
-				script.src = url;
-				var head = document.getElementsByTagName('head')[0];
-				head.appendChild(script);
-			}
 		</script>
 	</head>
 	<body>
-		<div id="aa">click me</div>
-		<div class="bb"></div>
-		<div>
-			<a id="cc" href="https://www.baidu.com/" target="_blank">click me</a>
-		</div>
-		<img src="http://www.bz55.com/uploads/allimg/150309/139-150309101A0.jpg" />
+		<span class="red blue">red class</span>
+		<span class="blue">blue class</span>
+		<span class="yellow">yellow class</span>
 	</body>
 </html>
