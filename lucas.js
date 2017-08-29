@@ -24,8 +24,12 @@
 	}
 
 	function fireReady() {
-		for (var i = 0; i < readyFn.length; i++) {
-			readyFn[i].call(null);
+		try {
+			for (var i = 0; i < readyFn.length; i++) {
+				readyFn[i].call(null);
+			}
+		} catch(e) {
+			console.log(e.message);
 		}
 	}
 	
