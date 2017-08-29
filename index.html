@@ -6,15 +6,16 @@
 			$.ready(function() {
 				var eles, body;
 				body = document.getElementsByTagName('body')[0];
-				eles = $.getElementsByClassName('red', body);
+				eles = $.getElementsByClassName('red blue', document);
 				// console.log(eles);
-				alert(eles);
+				// alert(eles);
 			});
 		</script>
 	</head>
 	<body>
-		<span class="red blue">red class</span>
-		<span class="blue">blue class</span>
+		<span class="red">red</span>
+		<span class="blue">blue</span>
 		<span class="yellow">yellow class</span>
+		<span class="red blue">red</span>
 	</body>
 </html>

@@ -46,12 +46,22 @@
 		} else {
 			// https://developer.mozilla.org/en-US/docs/Web/API/Element/getElementsByTagName
 			var alls = context.getElementsByTagName('*');
+			var nameArray = names.split(' ');
 			for (var i = 0; i < alls.length; i++) {
 				var className = alls[i].className;
 				if (className.length > 0) {
+					var match = 0;
 					var classArray = className.split(' ');
 					for (var j = 0; j < classArray.length; j++) {
-						if (names === classArray[j]) {
+						for (var k = 0; k < nameArray.length; k++) {
+							if (nameArray[k] === classArray[j]) {
+								if (match < nameArray.length) {
+									match++;
+									break;
+								}
+							}
+						}
+						if (match === nameArray.length) {
 							eles.push(alls[i]);
 							break;
 						}
