@@ -4,18 +4,17 @@
 		<script src="lucas.js" charset="utf-8"></script>
 		<script>
 			$.ready(function() {
-				var eles, body;
-				body = document.getElementsByTagName('body')[0];
-				eles = $.getElementsByClassName('red blue', document);
-				// console.log(eles);
-				// alert(eles);
+				console.log($.query('#apple'));
+				console.log($.query('.red'));
+				console.log($.query('.yellow'));
+				console.log($.query('body'));
 			});
 		</script>
 	</head>
 	<body>
-		<span class="red">red</span>
-		<span class="blue">blue</span>
-		<span class="yellow">yellow class</span>
-		<span class="red blue">red</span>
+		<div id="apple"></div>
+		<div id="pen"></div>
+		<div class="red"></div>
+		<div class="blue"></div>
 	</body>
 </html>

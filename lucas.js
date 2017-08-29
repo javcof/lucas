@@ -77,11 +77,31 @@
 	}
 	
 	Lucas.query = function(selectors, context) {
+		var elem = null;
 		context = context || document;
 		if (context.querySelector) {
 			return context.querySelector(selectors);
+		} else {
+			var prefix = '', 
+				selector = '';
+			prefix = selectors.charAt(0);
+			selector = selectors.substring(1);
+			if (prefix === '#') {
+				// ID selector
+				// https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById
+				elem = document.getElementById(selector);
+				return elem;
+			}
+			if (prefix === '.') {
+				// class selector
+				elem = Lucas.getElementsByClassName(selector);
+				return elem[0] ? elem[0] : null;
+			}
+			// element selector
+			elem = document.getElementsByTagName(selectors);
+			return elem[0] ? elem[0] : null;
 		}
-		return null;
+		return elem;
 	}
 	
 	Lucas.queryAll = function(selectors, context) {
