@@ -81,26 +81,8 @@
 		context = context || document;
 		if (context.querySelector) {
 			return context.querySelector(selectors);
-		} else {
-			var prefix = '', 
-				selector = '';
-			prefix = selectors.charAt(0);
-			selector = selectors.substring(1);
-			if (prefix === '#') {
-				// ID selector
-				// https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById
-				elem = document.getElementById(selector);
-				return elem;
-			}
-			if (prefix === '.') {
-				// class selector
-				elem = Lucas.getElementsByClassName(selector);
-				return elem[0] ? elem[0] : null;
-			}
-			// element selector
-			elem = document.getElementsByTagName(selectors);
-			return elem[0] ? elem[0] : null;
 		}
+		elem = Lucas.querySelector(selectors, context);
 		return elem;
 	}
 	
@@ -108,6 +90,44 @@
 		context = context || document;
 		if (context.querySelectorAll) {
 			return context.querySelectorAll(selectors);
+		}
+		return null;
+	}
+	
+	Lucas.querySelector = function(selectors, context) {
+		var eles,
+			commas = ',',
+			selector = '',
+			group = [];
+		context = context || document;	
+		group = selectors.split(commas);
+		for (var i = 0; i < group.length; i++) {
+			selector = group[i];
+			var elem,
+				symbol = selector.charAt(0),
+				name = selector.substring(1);
+				
+			// ID selector
+			// https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById
+			if (symbol === '#') {
+				elem = document.getElementById(name);
+				if (elem) {
+					return document.getElementById(name);
+				}
+				continue;
+			}
+			
+			// class selector
+			if (symbol === '.') {
+				eles = Lucas.getElementsByClassName(name, context);
+				return eles[0] ? eles[0] : null;
+			}
+			
+			// element selector
+			eles = context.getElementsByTagName(selector);
+			if (eles[0]) {
+				return eles[0] ? eles[0] : null;
+			}
 		}
 		return null;
 	}

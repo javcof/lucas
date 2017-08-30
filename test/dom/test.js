@@ -1,3 +1,6 @@
+/*
+** Lucas.getElementsByClassName(names, context)
+*/
 $.ready(function() {
 	prepare();
 	
@@ -99,6 +102,9 @@ $.ready(function() {
 	}
 });
 
+/*
+** Lucas.querySelector(selectors, context)
+*/
 $.ready(function() {
 	prepare();
 	
@@ -126,18 +132,32 @@ $.ready(function() {
 	
 	function test01() {
 		var flag = false;
-		var elem = Lucas.query('#apple');
+		var elem = Lucas.querySelector('#apple');
 		
 		if (elem.id === 'apple') {
 			console.log('Test Passed.');
 		} else {
 			console.log('Test Failed.');
 		}
+		
+		var elem = Lucas.querySelector('#orange');
+		if (elem === null) {
+			console.log('Test Passed.');
+		} else {
+			console.log('Test Failed.');
+		}
+		
+		var elem = Lucas.querySelector('#orange,#apple');
+		if (elem.id === 'apple') {
+			console.log('Test Passed.');
+		} else {
+			console.log('Test Failed.');
+		}
 	}
-	
+
 	function test02() {
 		var flag = false;
-		var elem = Lucas.query('.red');
+		var elem = Lucas.querySelector('.red');
 		
 		if (elem.className === 'red') {
 			console.log('Test Passed.');
@@ -148,7 +168,7 @@ $.ready(function() {
 	
 	function test03() {
 		var flag = false;
-		var elem = Lucas.query('.yellow');
+		var elem = Lucas.querySelector('.yellow');
 		
 		if (!elem) {
 			console.log('Test Passed.');
@@ -159,7 +179,7 @@ $.ready(function() {
 	
 	function test04() {
 		var flag = false;
-		var elem = Lucas.query('body');
+		var elem = Lucas.querySelector('body');
 		
 		if (elem.tagName === 'BODY') {
 			console.log('Test Passed.');
