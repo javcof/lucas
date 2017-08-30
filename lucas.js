@@ -102,7 +102,7 @@
 		context = context || document;	
 		group = selectors.split(commas);
 		for (var i = 0; i < group.length; i++) {
-			selector = group[i];
+			selector = $.trim(group[i]);
 			var elem,
 				symbol = selector.charAt(0),
 				name = selector.substring(1);
@@ -230,6 +230,15 @@
 				parent = parent.offsetParent;
 			}
 			return pos;
+		}
+	});
+	
+	Lucas.extend(Lucas, {
+		trim: function(str) {
+			// Polyfill
+			// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim
+			var re = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+			return str.trim ? str.trim(str) : str.replace(re, '');
 		}
 	});
 

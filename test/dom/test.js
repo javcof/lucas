@@ -147,7 +147,7 @@ $.ready(function() {
 			console.log('Test Failed.');
 		}
 		
-		var elem = Lucas.querySelector('#orange,#apple');
+		var elem = Lucas.querySelector('#orange, #apple');
 		if (elem.id === 'apple') {
 			console.log('Test Passed.');
 		} else {
