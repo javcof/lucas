@@ -98,7 +98,9 @@
 		var eles,
 			commas = ',',
 			selector = '',
-			group = [];
+			group = [],
+			// https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Combinators_and_multiple_selectors
+			combinators = [',', ' '];
 		context = context || document;	
 		group = selectors.split(commas);
 		for (var i = 0; i < group.length; i++) {

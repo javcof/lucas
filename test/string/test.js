@@ -1,28 +1,9 @@
 $.ready(function() {
 
-	testTrim();
-
-	function testTrim() {
-		var expected = Lucas.trim(' ios');
-		if (expected === 'ios') {
-			console.log('Test Passed.');
-		} else {
-			console.log('Test Failed.');
-		}
-		
-		expected = Lucas.trim('ios ');
-		if (expected === 'ios') {
-			console.log('Test Passed.');
-		} else {
-			console.log('Test Failed.');
-		}
-		
-		expected = Lucas.trim(' ios ');
-		if (expected === 'ios') {
-			console.log('Test Passed.');
-		} else {
-			console.log('Test Failed.');
-		}
-	}
+	QUnit.test('Lucas.trim()', function(assert) {
+		assert.equal('android', Lucas.trim(' android'), 'Lucas.trim(" android") equals android');
+		assert.equal('android', Lucas.trim('android '), 'Lucas.trim("android ") equals android');
+		assert.equal('android', Lucas.trim(' android '), 'Lucas.trim(" android ") equals android');
+	});
 });
 
