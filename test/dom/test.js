@@ -37,6 +37,8 @@ $.ready(function() {
 		html += '<div id="pen"></div>';
 		html += '<div class="red"></div>';
 		html += '<div class="blue"></div>';
+		html += '<div id="color"><div class="blue"></div></div>';
+		html += '<div class="color"><div class="blue"></div></div>';
 		prepare(html);
 		
 		var elem;
@@ -60,6 +62,14 @@ $.ready(function() {
 		
 		elem = Lucas.querySelector('body');
 		assert.equal(elem.tagName, 'BODY', '');
+		
+		elem = Lucas.querySelector('#color .blue');
+		assert.equal(elem.parentElement.id, 'color', '');
+		assert.equal(elem.className, 'blue', '');
+		
+		elem = Lucas.querySelector('.color .blue');
+		assert.equal(elem.parentElement.className, 'color', '');
+		assert.equal(elem.className, 'blue', '');
 		
 		clear();
 	});

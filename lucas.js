@@ -99,12 +99,19 @@
 			commas = ',',
 			selector = '',
 			group = [],
+			symbols = ['#', '.'],
 			// https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Combinators_and_multiple_selectors
 			combinators = [',', ' '];
 		context = context || document;	
 		group = selectors.split(commas);
 		for (var i = 0; i < group.length; i++) {
 			selector = $.trim(group[i]);
+			var multipleSelectors = selector.split(' ');
+			if (multipleSelectors.length > 1) {
+				selector = multipleSelectors[1];
+				context = this.querySelector(multipleSelectors[0]);
+			}
+			
 			var elem,
 				symbol = selector.charAt(0),
 				name = selector.substring(1);
