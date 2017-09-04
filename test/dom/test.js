@@ -1,5 +1,64 @@
 $.ready(function() {
 	
+	QUnit.test('Lucas.show()', function(assert) {
+		
+		var html = '';
+		html += '<div class="red"></div>';
+		html += '<div class="red"></div>';
+		prepare(html);
+		
+		var eles;
+		eles = Lucas.getElementsByClassName('red');
+		
+		Lucas.show(eles);
+		assert.equal(eles[0].style.display, 'block', '');
+		assert.equal(eles[1].style.display, 'block', '');
+		
+		clear();
+	});
+	
+	QUnit.test('Lucas.hide()', function(assert) {
+		
+		var html = '';
+		html += '<div class="red"></div>';
+		html += '<div class="red"></div>';
+		prepare(html);
+		
+		var eles;
+		eles = Lucas.getElementsByClassName('red');
+		
+		Lucas.hide(eles);
+		assert.equal(eles[0].style.display, 'none', '');
+		assert.equal(eles[1].style.display, 'none', '');
+		
+		clear();
+	});
+	
+	QUnit.test('Lucas.siblings()', function(assert) {
+		
+		var html = '';
+		html += '<div id="one"></div>';
+		html += '<div id="two"></div>';
+		html += '<div id="three"></div>';
+		html += '<div id="four"></div>';
+		html += '<div id="five"></div>';
+		prepare(html);
+		
+		var elem, eles;
+		elem = document.getElementById('three');
+		
+		eles = Lucas.siblings(elem);
+		
+		var expected = [];
+		expected.push(document.getElementById('one'));
+		expected.push(document.getElementById('two'));
+		expected.push(document.getElementById('four'));
+		expected.push(document.getElementById('five'));
+		assert.deepEqual(eles, expected, '');
+		
+		clear();
+	});
+	
 	QUnit.test('Lucas.getElementsByClassName()', function(assert) {
 		
 		var html = '';
@@ -43,7 +102,7 @@ $.ready(function() {
 		
 		var elem;
 		elem = Lucas.querySelector('#apple');
-		assert.equal(elem.id, 'apple', '');
+		assert.deepEqual(elem.id, 'apple', '');
 		
 		elem = Lucas.querySelector('#orange');
 		assert.equal(elem, null, '');
