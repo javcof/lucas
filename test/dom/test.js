@@ -36,25 +36,25 @@ $.ready(function() {
 	
 	QUnit.test('Lucas.siblings()', function(assert) {
 		
-		var html = '';
-		html += '<div id="one"></div>';
-		html += '<div id="two"></div>';
-		html += '<div id="three"></div>';
-		html += '<div id="four"></div>';
-		html += '<div id="five"></div>';
-		prepare(html);
+		var one = document.createElement('div');
+		one.id = 'one';
 		
-		var elem, eles;
-		elem = document.getElementById('three');
+		var two = document.createElement('div');
+		two.id = 'two';
 		
-		eles = Lucas.siblings(elem);
+		var three = document.createElement('div');
+		three.id = 'three';
 		
-		var expected = [];
-		expected.push(document.getElementById('one'));
-		expected.push(document.getElementById('two'));
-		expected.push(document.getElementById('four'));
-		expected.push(document.getElementById('five'));
-		assert.deepEqual(eles, expected, '');
+		var four = document.createElement('div');
+		four.id = 'four';
+		
+		var five = document.createElement('div');
+		five.id = 'five';
+
+		prepare([one, two, three, four, five]);
+
+		var eles = Lucas.siblings(three);
+		assert.deepEqual(eles, [one , two, four, five], '');
 		
 		clear();
 	});
@@ -133,9 +133,16 @@ $.ready(function() {
 		clear();
 	});
 	
-	function prepare(html) {
+	function prepare(data) {
 		var div = document.getElementById('data');
-		div.innerHTML = html;
+		if (typeof data === 'string') {
+			div.innerHTML = data;
+			return;
+		}
+		
+		for (var i = 0; i< data.length; i++) {
+			div.appendChild(data[i]);
+		}
 	}
 	
 	function clear() {
