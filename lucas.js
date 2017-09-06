@@ -132,6 +132,12 @@
 				return eles[0] ? eles[0] : null;
 			}
 			
+			// element#id
+			var selectorArray = selector.split('#');
+			if (selectorArray.length > 1) {
+				return document.getElementById(selectorArray[1]);
+			}
+			
 			// element selector
 			eles = context.getElementsByTagName(selector);
 			if (eles[0]) {

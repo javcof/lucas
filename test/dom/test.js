@@ -102,12 +102,18 @@ $.ready(function() {
 		
 		var elem;
 		elem = Lucas.querySelector('#apple');
-		assert.deepEqual(elem.id, 'apple', '');
+		assert.equal(elem.id, 'apple', '');
+		
+		elem = Lucas.querySelector('div#apple');
+		assert.equal(elem.id, 'apple', '');
 		
 		elem = Lucas.querySelector('#orange');
 		assert.equal(elem, null, '');
 		
 		elem = Lucas.querySelector('#apple,#orange');
+		assert.equal(elem.id, 'apple', '');
+		
+		elem = Lucas.querySelector('div#apple,div#orange');
 		assert.equal(elem.id, 'apple', '');
 		
 		elem = Lucas.querySelector('#orange,#apple');
