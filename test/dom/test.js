@@ -139,6 +139,28 @@ $.ready(function() {
 		clear();
 	});
 	
+	QUnit.test('Lucas.querySelectorAll()', function(assert) {
+		
+		var color = document.createElement('div');
+		color.id = 'color';
+
+		prepare([color]);
+
+		var eles = Lucas.querySelectorAll('#color');
+		assert.deepEqual(eles, [color], '');
+		
+		eles = Lucas.querySelectorAll('*#color');
+		assert.deepEqual(eles, [color], '');
+		
+		eles = Lucas.querySelectorAll('div#color');
+		assert.deepEqual(eles, [color], '');
+		
+		// eles = Lucas.querySelectorAll('#color');
+		// assert.deepEqual(eles, [], '');
+		
+		clear();
+	});
+	
 	function prepare(data) {
 		var div = document.getElementById('data');
 		if (typeof data === 'string') {
