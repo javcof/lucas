@@ -41,41 +41,6 @@
 		readyFn.push(fn);
 	}
 	
-	Lucas.getElementsByClassName = function (names, context) {
-		var eles = [];
-		context = context || document;
-		if (document.getElementsByClassName) {
-			// https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByClassName
-			eles = context.getElementsByClassName(names);
-		} else {
-			// https://developer.mozilla.org/en-US/docs/Web/API/Element/getElementsByTagName
-			var alls = context.getElementsByTagName('*');
-			var nameArray = names.split(' ');
-			for (var i = 0; i < alls.length; i++) {
-				var className = alls[i].className;
-				if (className.length > 0) {
-					var match = 0;
-					var classArray = className.split(' ');
-					for (var j = 0; j < classArray.length; j++) {
-						for (var k = 0; k < nameArray.length; k++) {
-							if (nameArray[k] === classArray[j]) {
-								if (match < nameArray.length) {
-									match++;
-									break;
-								}
-							}
-						}
-						if (match === nameArray.length) {
-							eles.push(alls[i]);
-							break;
-						}
-					}
-				}
-			}
-		}
-		return eles;
-	}
-	
 	Lucas.query = function(selectors, context) {
 		var elem = null;
 		context = context || document;
@@ -90,59 +55,6 @@
 		context = context || document;
 		if (context.querySelectorAll) {
 			return context.querySelectorAll(selectors);
-		}
-		return null;
-	}
-	
-	Lucas.querySelector = function(selectors, context) {
-		var eles,
-			commas = ',',
-			selector = '',
-			group = [],
-			symbols = ['#', '.'],
-			// https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Combinators_and_multiple_selectors
-			combinators = [',', ' '];
-		context = context || document;	
-		group = selectors.split(commas);
-		for (var i = 0; i < group.length; i++) {
-			selector = $.trim(group[i]);
-			var multipleSelectors = selector.split(' ');
-			if (multipleSelectors.length > 1) {
-				selector = multipleSelectors[1];
-				context = this.querySelector(multipleSelectors[0]);
-			}
-			
-			var elem,
-				symbol = selector.charAt(0),
-				name = selector.substring(1);
-				
-			// ID selector
-			// https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById
-			if (symbol === '#') {
-				elem = document.getElementById(name);
-				if (elem) {
-					return document.getElementById(name);
-				}
-				continue;
-			}
-			
-			// class selector
-			if (symbol === '.') {
-				eles = Lucas.getElementsByClassName(name, context);
-				return eles[0] ? eles[0] : null;
-			}
-			
-			// element#id
-			var selectorArray = selector.split('#');
-			if (selectorArray.length > 1) {
-				return document.getElementById(selectorArray[1]);
-			}
-			
-			// element selector
-			eles = context.getElementsByTagName(selector);
-			if (eles[0]) {
-				return eles[0] ? eles[0] : null;
-			}
 		}
 		return null;
 	}

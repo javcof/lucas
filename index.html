@@ -6,10 +6,15 @@
 	<body>
 		<div id="qunit"></div>
 		<div id="qunit-fixture"></div>
+		<div id="data">
+			<div class="red"></div>
+			<div class="blue"></div>
+		</div>
 		<script src="lucas.js" charset="utf-8"></script>
+		<script src="sizzle-1.0.0.js" charset="utf-8"></script>
 		<script>
 			$.ready(function() {
-
+				var datas = Sizzle('head,body, #data');
 			});
 		</script>
 	</body>

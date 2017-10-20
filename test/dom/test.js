@@ -1,37 +1,29 @@
 $.ready(function() {
 	
-	QUnit.test('Lucas.show()', function(assert) {
+	QUnit.test('Lucas', function(assert) {
 		
-		var html = '';
-		html += '<div class="red"></div>';
-		html += '<div class="red"></div>';
-		prepare(html);
+		var actual, expected, 
+			data = document.getElementById('data');
+			
+		var red = document.createElement('div'),
+			blue = document.createElement('div');
+			
+		red.className = 'red';
+		blue.className = 'blue';
 		
-		var eles;
-		eles = Lucas.getElementsByClassName('red');
+		data.appendChild(red);
+		data.appendChild(blue);
 		
-		Lucas.show(eles);
-		assert.equal(eles[0].style.display, 'block', '');
-		assert.equal(eles[1].style.display, 'block', '');
+		Lucas.show([red, blue]);
+		assert.equal(red.style.display, 'block', 'E display block');
+		assert.equal(blue.style.display, 'block', 'E display block');
 		
-		clear();
-	});
-	
-	QUnit.test('Lucas.hide()', function(assert) {
+		Lucas.hide([red, blue]);
+		assert.equal(red.style.display, 'none', 'E display none');
+		assert.equal(blue.style.display, 'none', 'E display none');
 		
-		var html = '';
-		html += '<div class="red"></div>';
-		html += '<div class="red"></div>';
-		prepare(html);
-		
-		var eles;
-		eles = Lucas.getElementsByClassName('red');
-		
-		Lucas.hide(eles);
-		assert.equal(eles[0].style.display, 'none', '');
-		assert.equal(eles[1].style.display, 'none', '');
-		
-		clear();
+		data.removeChild(red);
+		data.removeChild(blue);
 	});
 	
 	QUnit.test('Lucas.siblings()', function(assert) {
@@ -59,106 +51,10 @@ $.ready(function() {
 		clear();
 	});
 	
-	QUnit.test('Lucas.getElementsByClassName()', function(assert) {
-		
-		var html = '';
-		html += '<div class="red"></div>';
-		html += '<div class="blue"></div>';
-		html += '<div class="red blue"></div>';
-		html += '<div class="yellow"></div>';
-		html += '<div class="black"><span></span></div>';
-		prepare(html);
-		
-		var eles;
-		eles = Lucas.getElementsByClassName('red');
-		assert.equal(eles[0].className, 'red', '');
-		assert.equal(eles[1].className, 'red blue', '');
-		
-		eles = Lucas.getElementsByClassName('red blue');
-		assert.equal(eles[0].className, 'red blue', '');
-		
-		eles = Lucas.getElementsByClassName('blue red');
-		assert.equal(eles[0].className, 'red blue', '');
-		
-		eles = Lucas.getElementsByClassName('');
-		assert.equal(eles.length, 0, '');
-		
-		eles = Lucas.getElementsByClassName('');
-		assert.equal(eles.length, 0, '');
-		
-		clear();
-	});
-	
-	QUnit.test('Lucas.querySelector()', function(assert) {
-		
-		var html = '';
-		html += '<div id="apple"></div>';
-		html += '<div id="pen"></div>';
-		html += '<div class="red"></div>';
-		html += '<div class="blue"></div>';
-		html += '<div id="color"><div class="blue"></div></div>';
-		html += '<div class="color"><div class="blue"></div></div>';
-		prepare(html);
-		
-		var elem;
-		elem = Lucas.querySelector('#apple');
-		assert.equal(elem.id, 'apple', '');
-		
-		elem = Lucas.querySelector('div#apple');
-		assert.equal(elem.id, 'apple', '');
-		
-		elem = Lucas.querySelector('#orange');
-		assert.equal(elem, null, '');
-		
-		elem = Lucas.querySelector('#apple,#orange');
-		assert.equal(elem.id, 'apple', '');
-		
-		elem = Lucas.querySelector('div#apple,div#orange');
-		assert.equal(elem.id, 'apple', '');
-		
-		elem = Lucas.querySelector('#orange,#apple');
-		assert.equal(elem.id, 'apple', '');
-		
-		elem = Lucas.querySelector('.red');
-		assert.equal(elem.className, 'red', '');
-		
-		elem = Lucas.querySelector('.yellow');
-		assert.equal(elem, null, '');
-		
-		elem = Lucas.querySelector('body');
-		assert.equal(elem.tagName, 'BODY', '');
-		
-		elem = Lucas.querySelector('#color .blue');
-		assert.equal(elem.parentElement.id, 'color', '');
-		assert.equal(elem.className, 'blue', '');
-		
-		elem = Lucas.querySelector('.color .blue');
-		assert.equal(elem.parentElement.className, 'color', '');
-		assert.equal(elem.className, 'blue', '');
-		
-		clear();
-	});
-	
-	QUnit.test('Lucas.querySelectorAll()', function(assert) {
-		
-		var color = document.createElement('div');
-		color.id = 'color';
-
-		prepare([color]);
-
-		var eles = Lucas.querySelectorAll('#color');
-		assert.deepEqual(eles, [color], '');
-		
-		eles = Lucas.querySelectorAll('*#color');
-		assert.deepEqual(eles, [color], '');
-		
-		eles = Lucas.querySelectorAll('div#color');
-		assert.deepEqual(eles, [color], '');
-		
-		// eles = Lucas.querySelectorAll('#color');
-		// assert.deepEqual(eles, [], '');
-		
-		clear();
+	QUnit.test('Lucas.trim()', function(assert) {
+		assert.equal('android', Lucas.trim(' android'), 'Lucas.trim(" android") equals android');
+		assert.equal('android', Lucas.trim('android '), 'Lucas.trim("android ") equals android');
+		assert.equal('android', Lucas.trim(' android '), 'Lucas.trim(" android ") equals android');
 	});
 	
 	function prepare(data) {
