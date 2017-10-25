@@ -1,0 +1,27 @@
+{
+  "name": "lucas",
+  "version": "1.0.0",
+  "description": "轻量级 javascript 框架",
+  "main": "lucas.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/javcof/lucas.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/javcof/lucas/issues"
+  },
+  "homepage": "https://github.com/javcof/lucas#readme"
+}
