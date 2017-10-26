@@ -2,7 +2,7 @@
 	var Lucas = {};
 	var html = document.documentElement;
 	var readyState = false, readyFn = [];
-	
+
 	if (document.addEventListener) {
 		document.addEventListener('DOMContentLoaded', fireReady, false);
 	} else {
@@ -10,7 +10,7 @@
 			doScroll();
 		}
 	}
-	
+
 	function doScroll() {
 		try {
 			// console.log('html.doScroll');
@@ -32,7 +32,7 @@
 			console.log(e.message);
 		}
 	}
-	
+
 	Lucas.ready = function(fn) {
 		if (document.readyState === 'complete') {
 			fn();
@@ -40,25 +40,27 @@
 		}
 		readyFn.push(fn);
 	}
-	
+
 	Lucas.query = function(selectors, context) {
 		var elem = null;
 		context = context || document;
 		if (context.querySelector) {
-			return context.querySelector(selectors);
+			elem = context.querySelector(selectors);
 		}
-		elem = Lucas.querySelector(selectors, context);
 		return elem;
 	}
-	
+
 	Lucas.queryAll = function(selectors, context) {
+		var eles = [];
 		context = context || document;
 		if (context.querySelectorAll) {
 			return context.querySelectorAll(selectors);
+		} else if (Leia) {
+			eles = Leia(selectors, context);
 		}
-		return null;
+		return eles;
 	}
-	
+
 	Lucas.bind = function(element, type, handler) {
 		if (element.addEventListener) {
 			element.addEventListener(type, handler, false);
@@ -72,7 +74,7 @@
 				// 使用非标准的 element.attachEvent() 方法绑定事件监听器。
 				// 在该模型中，事件对象有一个 srcElement 属性，等价于target 属性。
 				e.target = e.srcElement;
-				
+
 				// https://developer.mozilla.org/zh-CN/docs/Web/API/event.relatedTarget
 				// https://developer.mozilla.org/en-US/docs/Web/Events/mouseenter
 				// how to use mouseover to simulate the principle of event delegation for the mouseenter event.
@@ -81,26 +83,26 @@
 				} else if (type === 'mouseout') {
 					e.relatedTarget = e.toElement;
 				}
-				
+
 				e.preventDefault = function() {
 					this.returnValue = false;
 				}
 				e.stopPropagation = function() {
 					this.cancelBubble = true;
-				}			
+				}
 				handler.call(element, e);
 			});
 		} else {
 			element['on' + type] = handler;
 		}
 	}
-	
+
 	Lucas.extend = function(target, source) {
 		for (var key in source) {
 			target[key] = source[key];
 		}
 	}
-	
+
 	Lucas.extend(Lucas, {
 		show: function(elements) {
 			for (var i = 0; i < elements.length; i++) {
@@ -113,8 +115,8 @@
 			}
 		},
 		siblings: function(element) {
-			var prev = element.previousSibling, 
-				next = element.nextSibling, 
+			var prev = element.previousSibling,
+				next = element.nextSibling,
 				eles = [];
 			while (prev) {
 				if (prev.nodeType === 1) {
@@ -144,9 +146,9 @@
 			return false;
 		},
 		offset: function(element) {
-			var pos = { 
-				top: element.offsetTop, 
-				left: element.offsetLeft 
+			var pos = {
+				top: element.offsetTop,
+				left: element.offsetLeft
 			};
 			// https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLElement/offsetParent
 			// HTMLElement.offsetParent 是一个只读属性，返回一个指向最近的（closest，指包含层级上的最近）包含该元素的定位元素。
@@ -159,7 +161,7 @@
 			return pos;
 		}
 	});
-	
+
 	Lucas.extend(Lucas, {
 		trim: function(str) {
 			// Polyfill
