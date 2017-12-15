@@ -1,7 +1,11 @@
 (function() {
-	var Lucas = {};
-	var html = document.documentElement;
-	var readyState = false, readyFn = [];
+	var Lucas = {},
+		html = document.documentElement,
+		readyState = false,
+		readyFn = [],
+
+		// A global GUID counter for objects
+		guid: 1;
 
 	if (document.addEventListener) {
 		document.addEventListener('DOMContentLoaded', fireReady, false);
@@ -60,6 +64,18 @@
 		}
 		return eles;
 	}
+
+	Lucas.event = {
+		add: function(elem, type, handler) {
+
+		},
+		remove: function(elem, type, handler) {
+
+		},
+		handle: function(event) {
+
+		}
+	};
 
 	Lucas.bind = function(element, type, handler) {
 		if (element.addEventListener) {
