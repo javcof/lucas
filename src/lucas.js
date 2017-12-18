@@ -162,6 +162,12 @@
 	});
 
 	Lucas.extend(Lucas, {
+		on: function(elem, type, handler) {
+			Lucas.event.add(elem, type, handler);
+		}
+	});
+
+	Lucas.extend(Lucas, {
 		show: function(elements) {
 			for (var i = 0; i < elements.length; i++) {
 				elements[i].style.display = 'block';
