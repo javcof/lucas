@@ -143,6 +143,7 @@
 		}
 	}
 
+	// Lucas events system
 	Lucas.extend(Lucas, {
 		on: function(elem, type, handler) {
 			Lucas.event.add(elem, type, handler);
