@@ -5,7 +5,7 @@
 		readyFn = [],
 
 		// A global GUID counter for objects
-		guid: 1;
+		$$guid = 1;
 
 	if (document.addEventListener) {
 		document.addEventListener('DOMContentLoaded', fireReady, false);
@@ -65,15 +65,39 @@
 		return eles;
 	}
 
+	// http://dean.edwards.name/weblog/2005/10/add-event/
 	Lucas.event = {
 		add: function(elem, type, handler) {
+			var handlers;
+			if (!handler.$$guid) {
+				handler.$$guid = $$guid++;
+			}
+			if (!elem.events) {
+				elem.events = {};
+			}
+			if (!(handlers = elem.events[type])) {
+				handlers = elem.events[type] = {};
 
+				if (elem['on' + type]) {
+					handlers[0] = elem['on' + type];
+				}
+			}
+
+			handlers[handler.$$guid] = handler;
+			elem['on' + type] = this.handle;
 		},
 		remove: function(elem, type, handler) {
-
+			if (elem.events && elem.events[type]) {
+				delete elem.events[type][handler.$$guid];
+			}
 		},
-		handle: function(event) {
+		handle: function(e) {
+			e = e || window.event;
 
+			var handlers = this.events[e.type];
+			for (var i in handlers) {
+				handlers[i](e);
+			}
 		}
 	};
 
@@ -118,6 +142,23 @@
 			target[key] = source[key];
 		}
 	}
+
+	Lucas.extend(Lucas, {
+		on: function(elem, type, handler) {
+			Lucas.event.add(elem, type, handler);
+		},
+		off: function(elem, type, handler) {
+			if (arguments.length === 1) {
+				delete elem.events;
+				return;
+			}
+			if (arguments.length === 2) {
+				delete elem.events[type];
+				return;
+			}
+			Lucas.event.remove(elem, type, handler);
+		}
+	});
 
 	Lucas.extend(Lucas, {
 		show: function(elements) {
