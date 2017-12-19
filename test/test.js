@@ -52,16 +52,38 @@ $.ready(function() {
 	});
 
 	QUnit.test('Lucas.trim()', function(assert) {
-		assert.equal('android', Lucas.trim(' android'), 'Lucas.trim(" android") equals android');
-		assert.equal('android', Lucas.trim('android '), 'Lucas.trim("android ") equals android');
-		assert.equal('android', Lucas.trim(' android '), 'Lucas.trim(" android ") equals android');
+		assert.equal(Lucas.trim(' android'), 'android', 'Lucas.trim(" android") equals android');
+		assert.equal(Lucas.trim('android '), 'android', 'Lucas.trim("android ") equals android');
+		assert.equal(Lucas.trim(' android '), 'android', 'Lucas.trim(" android ") equals android');
 	});
 
-	/*
-	QUnit.test('Lucas.event', function(assert) {
 
+	QUnit.test('Lucas events system test', function(assert) {
+		// assert.expect(2);
+		assert.equal((typeof Lucas.on), 'function', 'Lucas.on is a function.');
+
+		var handler = function() {};
+		Lucas.on(document, 'click', handler);
+
+		var handlers = document.events['click'];
+		assert.deepEqual(handlers[handler.$$guid], handler);
+
+		Lucas.on(document, 'click', function() { });
+		Lucas.on(document, 'click', function() { });
+		Lucas.on(document, 'click', function() { });
+
+		assert.equal(typeof Lucas.off, 'function', 'Lucas.off method is a function.');
+
+		Lucas.off(document, 'click', handler);
+		assert.deepEqual(handlers[handler.$$guid], undefined);
+
+		Lucas.off(document, 'click');
+		handlers = document.events['click'];
+		assert.deepEqual(handlers, undefined);
+
+		Lucas.off(document);
+		assert.deepEqual(document.events, undefined);
 	});
-	*/
 
 	function prepare(data) {
 		var div = document.getElementById('data');

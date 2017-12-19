@@ -151,19 +151,15 @@
 		off: function(elem, type, handler) {
 			if (arguments.length === 1) {
 				delete elem.events;
+				elem['on' + type] = null;
 				return;
 			}
 			if (arguments.length === 2) {
 				delete elem.events[type];
+				elem['on' + type] = null;
 				return;
 			}
 			Lucas.event.remove(elem, type, handler);
-		}
-	});
-
-	Lucas.extend(Lucas, {
-		on: function(elem, type, handler) {
-			Lucas.event.add(elem, type, handler);
 		}
 	});
 
