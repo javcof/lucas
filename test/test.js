@@ -68,11 +68,11 @@ $.ready(function() {
 		var handlers = document.events['click'];
 		assert.deepEqual(handlers[handler.$$guid], handler);
 
-		Lucas.on(document, 'click', function() { });
-		Lucas.on(document, 'click', function() { });
-		Lucas.on(document, 'click', function() { });
+		Lucas.on(document, 'click', function() { console.log('click log 1'); });
+		Lucas.on(document, 'click', function() { console.log('click log 2'); });
+		Lucas.on(document, 'click', function() { console.log('click log 3'); });
 
-		assert.equal(typeof Lucas.off, 'function', 'Lucas.off method is a function.');
+		assert.equal(typeof Lucas.off, 'function', 'Lucas.off is a function.');
 
 		Lucas.off(document, 'click', handler);
 		assert.deepEqual(handlers[handler.$$guid], undefined);
@@ -83,6 +83,10 @@ $.ready(function() {
 
 		Lucas.off(document);
 		assert.deepEqual(document.events, undefined);
+
+		assert.equal(typeof Lucas.trigger, 'function', 'Lucas.trigger is a function.');
+		Lucas.on(document, 'custom', function() { console.log('custom log 1'); });
+		Lucas.trigger(document, 'custom');
 	});
 
 	function prepare(data) {
