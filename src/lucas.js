@@ -45,25 +45,6 @@
 		readyFn.push(fn);
 	}
 
-	Lucas.query = function(selectors, context) {
-		var elem = null;
-		context = context || document;
-		if (context.querySelector) {
-			elem = context.querySelector(selectors);
-		}
-		return elem;
-	}
-
-	Lucas.queryAll = function(selectors, context) {
-		var eles = [];
-		context = context || document;
-		if (context.querySelectorAll) {
-			return context.querySelectorAll(selectors);
-		} else if (Leia) {
-			eles = Leia(selectors, context);
-		}
-		return eles;
-	}
 
 	// http://dean.edwards.name/weblog/2005/10/add-event/
 	Lucas.event = {
@@ -142,6 +123,46 @@
 			target[key] = source[key];
 		}
 	}
+
+	Lucas.extend(Lucas, {
+		query: function(selectors, context) {
+			var elem = null;
+			context = context || document;
+			if (context.querySelector) {
+				elem = context.querySelector(selectors);
+			}
+			return elem;
+		},
+		queryAll: function(selectors, context) {
+			var eles = [];
+			context = context || document;
+			if (context.querySelectorAll) {
+				return context.querySelectorAll(selectors);
+			} else if (Leia) {
+				eles = Leia(selectors, context);
+			}
+			return eles;
+		},
+		matches: function(elem, selector) {
+
+			// Polyfill
+			// https://developer.mozilla.org/zh-CN/docs/Web/API/Element/matches
+			var matchesHandler =
+				elem.matches ||
+				elem.mozMatchesSelector ||
+				elem.msMatchesSelector ||
+				elem.oMatchesSelector ||
+				elem.webkitMatchesSelector ||
+		        function(s) {
+		            var matches = (elem.document || elem.ownerDocument).querySelectorAll(s),
+		                i = matches.length;
+		            while (--i >= 0 && matches.item(i) !== this) {}
+		            return i > -1;            
+	        	};
+
+			return matchesHandler.apply(elem, [selector]);
+		}
+	});
 
 	// Lucas events system
 	Lucas.extend(Lucas, {
