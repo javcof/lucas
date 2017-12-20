@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Custom events</title>
+        <style>
+            * {
+                font-size: 12px;
+            }
+
+            .room {
+                clear: both;
+            }
+
+            .room div {
+                width: 100px;
+                height: 100px;
+                border: 1px solid #eee;
+                margin: 10px;
+                float: left;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="room">
+            <div class="lightbulb on">Lightbulb</div>
+            <div class="switch">Switch</div>
+            <div class="switch">Switch</div>
+            <div class="clapper">Clapper</div>
+        </div>
+        <script src="../src/lucas.js"></script>
+        <script>
+            $.ready(function() {
+                var $light = $.queryAll('.lightbulb'),
+                    $switch = $.queryAll('.switch'),
+                    $clapper = $.queryAll('.clapper');
+
+                $.on($light[0], 'toggle', function(e) {
+                    console.log('light toggle.');
+                });
+
+                for (var i = 0; i < $switch.length; i++) {
+                    $.on($switch[i], 'click', function(e) {
+                        $.trigger($light[0], 'toggle');
+                    });
+                }
+
+                for (var i = 0; i < $clapper.length; i++) {
+                    $.on($clapper[i], 'click', function(e) {
+                        $.trigger($light[0], 'toggle');
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>
