@@ -35,7 +35,13 @@
                     $clapper = $.queryAll('.clapper');
 
                 $.on($light[0], 'toggle', function(e) {
-                    console.log('light toggle.');
+                    if ($.matches(this, '.on')) {
+                        $.removeClass(this, 'on');
+                        $.addClass(this, 'off');
+                    } else {
+                        $.removeClass(this, 'off');
+                        $.addClass(this, 'on');
+                    }
                 });
 
                 for (var i = 0; i < $switch.length; i++) {

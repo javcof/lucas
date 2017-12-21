@@ -145,6 +145,10 @@
 		},
 		matches: function(elem, selector) {
 
+			if (elem.nodeType != 1) {
+				return false;
+			}
+
 			// Polyfill
 			// https://developer.mozilla.org/zh-CN/docs/Web/API/Element/matches
 			var matchesHandler =
@@ -157,7 +161,7 @@
 		            var matches = (elem.document || elem.ownerDocument).querySelectorAll(s),
 		                i = matches.length;
 		            while (--i >= 0 && matches.item(i) !== this) {}
-		            return i > -1;            
+		            return i > -1;
 	        	};
 
 			return matchesHandler.apply(elem, [selector]);
@@ -248,6 +252,20 @@
 				parent = parent.offsetParent;
 			}
 			return pos;
+		},
+		addClass: function(elem, className) {
+			if (elem.className.indexOf(className) == -1) {
+				elem.className =
+					elem.className.length > 0 ?
+					elem.className + ' ' + className :
+					className;
+			}
+		},
+		removeClass: function(elem, className) {
+			if (elem.className.indexOf(className) > -1) {
+				elem.className = elem.className.replace(className, '');
+			}
+			elem.className = $.trim(elem.className);
 		}
 	});
 

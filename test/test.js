@@ -57,7 +57,6 @@ $.ready(function() {
 		assert.equal(Lucas.trim(' android '), 'android', 'Lucas.trim(" android ") equals android');
 	});
 
-
 	QUnit.test('Lucas events system test', function(assert) {
 		// assert.expect(2);
 		assert.equal((typeof Lucas.on), 'function', 'Lucas.on is a function.');
@@ -87,6 +86,40 @@ $.ready(function() {
 		assert.equal(typeof Lucas.trigger, 'function', 'Lucas.trigger is a function.');
 		Lucas.on(document, 'custom', function() { console.log('custom log 1'); });
 		Lucas.trigger(document, 'custom');
+	});
+
+	QUnit.test('Lucas matches method test', function(assert) {
+		assert.equal(typeof Lucas.matches, 'function', 'Lucas matches is a function.');
+		assert.equal(Lucas.matches(document.documentElement, 'html'), true, 'document.documentElement match html tag.');
+		assert.equal(Lucas.matches(document, 'html'), false, 'document is not a Element, so return false.');
+	});
+
+	QUnit.test('Lucas add or remove class method test', function(assert) {
+		var html = document.documentElement;
+		assert.equal(typeof Lucas.addClass, 'function', 'Lucas addClass is a function.');
+
+		Lucas.addClass(html, 'otherClass');
+		assert.equal(html.className, 'otherClass', 'html.className equal "otherClass".');
+
+		html.className = 'noClass';
+		Lucas.addClass(html, 'otherClass');
+		assert.equal(html.className, 'noClass otherClass', 'html.calssName equal "noClass otherClass"');
+
+		assert.equal(typeof Lucas.removeClass, 'function', 'Lucas removeClass is a function.');
+
+		html.className = 'myClass';
+		Lucas.removeClass(html, 'noClass');
+		assert.equal(html.className, 'myClass', 'html.className equal "myClass".');
+		Lucas.removeClass(html, 'myClass');
+		assert.equal(html.className, '', 'html.calssName equal "".');
+
+		html.className = 'noClass myClass';
+		Lucas.removeClass(html, 'noClass');
+		assert.equal(html.className, 'myClass', 'html.className equal "myClass".');
+
+		html.className = 'noClass myClass';
+		Lucas.removeClass(html, 'myClass');
+		assert.equal(html.className, 'noClass', 'html.className equal "noClass".');
 	});
 
 	function prepare(data) {
