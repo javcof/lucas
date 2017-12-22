@@ -254,16 +254,18 @@
 			return pos;
 		},
 		addClass: function(elem, className) {
-			if (elem.className.indexOf(className) == -1) {
+			var _class = elem.className;
+			if ((' ' + _class + ' ').indexOf(' ' + className + ' ') == -1) {
 				elem.className =
-					elem.className.length > 0 ?
-					elem.className + ' ' + className :
+					_class.length > 0 ?
+					_class + ' ' + className :
 					className;
 			}
 		},
 		removeClass: function(elem, className) {
-			if (elem.className.indexOf(className) > -1) {
-				elem.className = elem.className.replace(className, '');
+			var _class = elem.className;
+			if ((' ' + _class + ' ').indexOf(' ' + className + ' ') > -1) {
+				elem.className = _class.replace(className, '');
 			}
 			elem.className = $.trim(elem.className);
 		}

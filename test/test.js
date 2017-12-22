@@ -103,7 +103,19 @@ $.ready(function() {
 
 		html.className = 'noClass';
 		Lucas.addClass(html, 'otherClass');
-		assert.equal(html.className, 'noClass otherClass', 'html.calssName equal "noClass otherClass"');
+		assert.equal(html.className, 'noClass otherClass', 'html.calssName equal "noClass otherClass".');
+
+		html.className = 'preClass';
+		Lucas.addClass(html, 'pre');
+		assert.equal(html.className, 'preClass pre', 'html.className equal "preClass pre".');
+
+		html.className = 'midClass';
+		Lucas.addClass(html, 'idClas');
+		assert.equal(html.className, 'midClass idClas', 'html.className equal "miClass idClas".');
+
+		html.className = 'sufClass';
+		Lucas.addClass(html, 'ass');
+		assert.equal(html.className, 'sufClass ass', 'html.className equal "sufClass ass".');
 
 		assert.equal(typeof Lucas.removeClass, 'function', 'Lucas removeClass is a function.');
 
@@ -120,6 +132,18 @@ $.ready(function() {
 		html.className = 'noClass myClass';
 		Lucas.removeClass(html, 'myClass');
 		assert.equal(html.className, 'noClass', 'html.className equal "noClass".');
+
+		html.className = 'preClass';
+		Lucas.removeClass(html, 'pre');
+		assert.equal(html.className, 'preClass', 'html.className equal "preClass".');
+
+		html.className = 'midClass';
+		Lucas.removeClass(html, 'idClas');
+		assert.equal(html.className, 'midClass', 'html.className equal "midClass".');
+
+		html.className = 'sufClass';
+		Lucas.removeClass(html, 'ass');
+		assert.equal(html.className, 'sufClass', 'html.className equal "sufClass".');
 	});
 
 	function prepare(data) {
