@@ -158,9 +158,9 @@
 				elem.oMatchesSelector ||
 				elem.webkitMatchesSelector ||
 		        function(s) {
-		            var matches = (elem.document || elem.ownerDocument).querySelectorAll(s),
+		            var matches = Leia(s);
 		                i = matches.length;
-		            while (--i >= 0 && matches.item(i) !== this) {}
+		            while (--i >= 0 && matches[i] !== this) {}
 		            return i > -1;
 	        	};
 
@@ -253,6 +253,7 @@
 			}
 			return pos;
 		},
+		// TODO: addClass method support multiple classes spearated by space.
 		addClass: function(elem, className) {
 			var _class = elem.className;
 			if ((' ' + _class + ' ').indexOf(' ' + className + ' ') == -1) {
