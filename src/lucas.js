@@ -138,8 +138,8 @@
 			context = context || document;
 			if (context.querySelectorAll) {
 				return context.querySelectorAll(selectors);
-			} else if (Leia) {
-				eles = Leia(selectors, context);
+			} else if (Sizzle) {
+				eles = Sizzle(selectors, context);
 			}
 			return eles;
 		},
@@ -158,7 +158,7 @@
 				elem.oMatchesSelector ||
 				elem.webkitMatchesSelector ||
 		        function(s) {
-		            var matches = Leia(s);
+		            var matches = Lucas.queryAll(s);
 		                i = matches.length;
 		            while (--i >= 0 && matches[i] !== this) {}
 		            return i > -1;
