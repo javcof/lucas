@@ -175,6 +175,7 @@
 		},
 		off: function(elem, type, handler) {
 			if (arguments.length === 1) {
+				// TODO: fix bug (ie6-7) break.
 				delete elem.events;
 				elem['on' + type] = null;
 				return;
@@ -253,7 +254,6 @@
 			}
 			return pos;
 		},
-		// TODO: addClass method support multiple classes spearated by space.
 		addClass: function(elem, className) {
 			var _class = elem.className;
 			if ((' ' + _class + ' ').indexOf(' ' + className + ' ') == -1) {

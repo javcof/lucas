@@ -86,7 +86,29 @@ $.ready(function() {
 		assert.equal(typeof Lucas.trigger, 'function', 'Lucas.trigger is a function.');
 		Lucas.on(document, 'custom', function() { console.log('custom log 1'); });
 		Lucas.trigger(document, 'custom');
+
 	});
+
+
+	QUnit.test('Lucas on method test', function(assert) {
+		var elem = document.getElementById('qunit-fixture-data'),
+			handlers;
+
+		assert.equal((typeof Lucas.on), 'function', 'Lucas.on is a function.');
+
+		var oneHandler = function(e) {
+			// one handler
+		};
+
+		// bind one handler twice
+		Lucas.on(elem, 'custom', oneHandler);
+		Lucas.on(elem, 'custom', oneHandler);
+
+		handlers = elem.events['custom'];
+		// TODO: optimize unit test
+		assert.deepEqual(handlers[oneHandler.$$guid], oneHandler, 'bind elem custom type handlers only once.');
+	});
+
 
 	QUnit.test('Lucas matches method test', function(assert) {
 		assert.equal(typeof Lucas.matches, 'function', 'Lucas matches is a function.');
@@ -95,55 +117,55 @@ $.ready(function() {
 	});
 
 	QUnit.test('Lucas add or remove class method test', function(assert) {
-		var html = document.documentElement;
+		var elem = Lucas.queryAll('#qunit-fixture-data')[0];
 		assert.equal(typeof Lucas.addClass, 'function', 'Lucas addClass is a function.');
 
-		Lucas.addClass(html, 'otherClass');
-		assert.equal(html.className, 'otherClass', 'html.className equal "otherClass".');
+		Lucas.addClass(elem, 'otherClass');
+		assert.equal(elem.className, 'otherClass', 'html.className equal "otherClass".');
 
-		html.className = 'noClass';
-		Lucas.addClass(html, 'otherClass');
-		assert.equal(html.className, 'noClass otherClass', 'html.calssName equal "noClass otherClass".');
+		elem.className = 'noClass';
+		Lucas.addClass(elem, 'otherClass');
+		assert.equal(elem.className, 'noClass otherClass', 'html.calssName equal "noClass otherClass".');
 
-		html.className = 'preClass';
-		Lucas.addClass(html, 'pre');
-		assert.equal(html.className, 'preClass pre', 'html.className equal "preClass pre".');
+		elem.className = 'preClass';
+		Lucas.addClass(elem, 'pre');
+		assert.equal(elem.className, 'preClass pre', 'html.className equal "preClass pre".');
 
-		html.className = 'midClass';
-		Lucas.addClass(html, 'idClas');
-		assert.equal(html.className, 'midClass idClas', 'html.className equal "miClass idClas".');
+		elem.className = 'midClass';
+		Lucas.addClass(elem, 'idClas');
+		assert.equal(elem.className, 'midClass idClas', 'html.className equal "miClass idClas".');
 
-		html.className = 'sufClass';
-		Lucas.addClass(html, 'ass');
-		assert.equal(html.className, 'sufClass ass', 'html.className equal "sufClass ass".');
+		elem.className = 'sufClass';
+		Lucas.addClass(elem, 'ass');
+		assert.equal(elem.className, 'sufClass ass', 'html.className equal "sufClass ass".');
 
 		assert.equal(typeof Lucas.removeClass, 'function', 'Lucas removeClass is a function.');
 
-		html.className = 'myClass';
-		Lucas.removeClass(html, 'noClass');
-		assert.equal(html.className, 'myClass', 'html.className equal "myClass".');
-		Lucas.removeClass(html, 'myClass');
-		assert.equal(html.className, '', 'html.calssName equal "".');
+		elem.className = 'myClass';
+		Lucas.removeClass(elem, 'noClass');
+		assert.equal(elem.className, 'myClass', 'html.className equal "myClass".');
+		Lucas.removeClass(elem, 'myClass');
+		assert.equal(elem.className, '', 'html.calssName equal "".');
 
-		html.className = 'noClass myClass';
-		Lucas.removeClass(html, 'noClass');
-		assert.equal(html.className, 'myClass', 'html.className equal "myClass".');
+		elem.className = 'noClass myClass';
+		Lucas.removeClass(elem, 'noClass');
+		assert.equal(elem.className, 'myClass', 'html.className equal "myClass".');
 
-		html.className = 'noClass myClass';
-		Lucas.removeClass(html, 'myClass');
-		assert.equal(html.className, 'noClass', 'html.className equal "noClass".');
+		elem.className = 'noClass myClass';
+		Lucas.removeClass(elem, 'myClass');
+		assert.equal(elem.className, 'noClass', 'html.className equal "noClass".');
 
-		html.className = 'preClass';
-		Lucas.removeClass(html, 'pre');
-		assert.equal(html.className, 'preClass', 'html.className equal "preClass".');
+		elem.className = 'preClass';
+		Lucas.removeClass(elem, 'pre');
+		assert.equal(elem.className, 'preClass', 'html.className equal "preClass".');
 
-		html.className = 'midClass';
-		Lucas.removeClass(html, 'idClas');
-		assert.equal(html.className, 'midClass', 'html.className equal "midClass".');
+		elem.className = 'midClass';
+		Lucas.removeClass(elem, 'idClas');
+		assert.equal(elem.className, 'midClass', 'html.className equal "midClass".');
 
-		html.className = 'sufClass';
-		Lucas.removeClass(html, 'ass');
-		assert.equal(html.className, 'sufClass', 'html.className equal "sufClass".');
+		elem.className = 'sufClass';
+		Lucas.removeClass(elem, 'ass');
+		assert.equal(elem.className, 'sufClass', 'html.className equal "sufClass".');
 	});
 
 	function prepare(data) {
