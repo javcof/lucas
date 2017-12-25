@@ -52,9 +52,10 @@ $.ready(function() {
 	});
 
 	QUnit.test('Lucas.trim()', function(assert) {
-		assert.equal(Lucas.trim(' android'), 'android', 'Lucas.trim(" android") equals android');
-		assert.equal(Lucas.trim('android '), 'android', 'Lucas.trim("android ") equals android');
-		assert.equal(Lucas.trim(' android '), 'android', 'Lucas.trim(" android ") equals android');
+		assert.equal(Lucas.trim(' leftTrim'), 'leftTrim', 'left trim test.');
+		assert.equal(Lucas.trim('rightTrim '), 'rightTrim', 'right trim test.');
+		assert.equal(Lucas.trim(' leftRightTrim '), 'leftRightTrim', 'left and right trim test.');
+		assert.equal(Lucas.trim('none Trim'), 'none Trim', 'none trim test.');
 	});
 
 	QUnit.test('Lucas events system test', function(assert) {
