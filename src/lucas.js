@@ -1,5 +1,6 @@
 (function() {
 	var Lucas = {},
+		support = {},
 		html = document.documentElement,
 		readyState = false,
 		readyFn = [],
@@ -175,8 +176,11 @@
 		},
 		off: function(elem, type, handler) {
 			if (arguments.length === 1) {
-				// TODO: fix bug (ie6-7) break.
-				delete elem.events;
+				if (support.deleteExpando) {
+					delete elem.events;
+			 	} else {
+					elem.events = undefined;
+				}
 				elem['on' + type] = null;
 				return;
 			}
@@ -280,6 +284,21 @@
 			return str.trim ? str.trim(str) : str.replace(re, '');
 		}
 	});
+
+	(function() {
+		var div = document.createElement('div');
+		div.expando = 'custom';
+
+		support.deleteExpando = true;
+		try {
+			delete div.expando;
+		} catch(e) {
+			support.deleteExpando = false;
+		}
+
+		// Null elements to avoid leaks in IE.
+		div = null;
+	})();
 
 	window.$ = window.Lucas = Lucas;
 })();
