@@ -83,6 +83,7 @@
 		}
 	};
 
+	// TODO: Deprecated, replace by on method
 	Lucas.bind = function(element, type, handler) {
 		if (element.addEventListener) {
 			element.addEventListener(type, handler, false);
