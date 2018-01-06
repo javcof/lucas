@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+	<head>
+		<style>
+			.draggable {
+				width: 125px;
+				height: 125px;
+				background-color: #ff0;
+			}
+		</style>
+		<script src="../src/lucas.js"></script>
+		<script>
+			$.ready(function() {
+				var dragged = false,
+						dragging = $.queryAll('.draggable')[0],
+						pointer = {
+								x: 0,
+								y: 0
+						},
+						offset = 10,
+						once = true;
+
+				$.on(dragging, 'mousedown', function(e) {
+					pointer.x = e.clientX - e.target.offsetLeft;
+					pointer.y = e.clientY - e.target.offsetTop;
+
+					dragged = true;
+				});
+
+				$.on(dragging, 'mousemove', function(e) {
+					if (dragged && once) {
+						once = false;
+						$.trigger(dragging, 'mousedragstart');
+					}
+
+					if (dragged &&
+						(
+							Math.abs(e.clientX - e.target.offsetLeft - pointer.x) >= offset ||
+							Math.abs(e.clientY - e.target.offsetTop - pointer.y) >= offset)) {
+						$.trigger(dragging, 'mousedrag', [e]);
+					}
+				});
+
+				$.on(dragging, 'mouseup', function(e) {
+					dragged = false;
+					if (!dragged) {
+						once = true;
+						$.trigger(dragging, 'mousedragend');
+					}
+				});
+
+				$.on(dragging, 'mousedragstart', function(e) {
+					dragging.style.opacity = .5;
+				});
+
+				$.on(dragging, 'mousedrag', function(data) {
+					dragging.style.position = 'absolute';
+					dragging.style.top = (data.clientY - pointer.y).toString() + 'px';
+					dragging.style.left = (data.clientX - pointer.x).toString() + 'px';
+				});
+
+				$.on(dragging, 'mousedragend', function(e) {
+					dragging.style.opacity = '';
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="draggable"></div>
+	</body>
+</html>

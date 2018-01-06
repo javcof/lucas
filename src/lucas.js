@@ -192,11 +192,11 @@
 			}
 			Lucas.event.remove(elem, type, handler);
 		},
-		trigger: function(elem, type) {
+		trigger: function(elem, type, extra) {
 			var handlers = elem.events[type];
 			if (handlers) {
 				for (var i in handlers) {
-					handlers[i].apply(elem);
+					handlers[i].apply(elem, extra);
 				}
 			}
 		}
