@@ -208,6 +208,7 @@
 					// IE6-8 apply second paramenter can't be a array-like type.
 					// Starting with ECMAScript 5 these arguments can be a generic array-like object instead of an array.
 					// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply
+					// https://www.cnblogs.com/snandy/archive/2011/03/21/1989743.html
 					handlers[i].apply(elem, extra || []);
 				}
 			}
