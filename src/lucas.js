@@ -74,7 +74,16 @@
 			}
 		},
 		handle: function(e) {
+
+			// SD9011: 事件模型在各浏览器中存在差异
+			// http://www.w3help.org/zh-cn/causes/SD9011
 			e = e || window.event;
+
+			// https://developer.mozilla.org/zh-CN/docs/Web/API/Event/target
+			// 在 IE6-8 中，事件模型与标准不同。
+			// 使用非标准的 element.attachEvent() 方法绑定事件监听器。
+			// 在该模型中，事件对象有一个 srcElement 属性，等价于target 属性。
+			e.target = e.target || e.srcElement;
 
 			var handlers = this.events[e.type];
 			for (var i in handlers) {
@@ -196,7 +205,10 @@
 			var handlers = elem.events[type];
 			if (handlers) {
 				for (var i in handlers) {
-					handlers[i].apply(elem, extra);
+					// IE6-8 apply second paramenter can't be a array-like type.
+					// Starting with ECMAScript 5 these arguments can be a generic array-like object instead of an array.
+					// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply
+					handlers[i].apply(elem, extra || []);
 				}
 			}
 		}
