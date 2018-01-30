@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Todo App</title>
+        <style>
+        </style>
+    </head>
+    <body>
+        <div id="todo-app">
+        </div>
+        <script src="../external/sizzle.js"></script>
+        <script src="../src/lucas.js"></script>
+        <script>
+            $.ready(function() {
+                var data = [
+                    {
+                        id: 1,
+                        title: 'Do the dishes'
+                    },
+                    {
+                        id: 2,
+                        title: 'Take out the trash'
+                    },
+                    {
+                        id: 3,
+                        title: 'Mow the lawn'
+                    }
+                ];
+
+                var app = $.queryAll('#todo-app')[0];
+                $.on(app, 'create', function(e) {
+                    var html = '<input placeholder="Add a todo">',
+                        todo = {};
+
+                    html += '<ul class="todo-items">';
+                    for (var i = 0; i < data.length; i++) {
+                        todo = data[i];
+                        html += '<li>' + todo.title + '<button>X</button>' + '</li>';
+                    }
+                    html += '</ul>'
+                    app.innerHTML = html;
+
+                    var newTodo = $.queryAll('#todo-app input')[0];
+                    $.on(newTodo, 'keyup', function(e) {
+                        if (e.keyCode && e.keyCode === 13) {
+                            $.trigger(app, 'add');
+                        }
+                    });
+                });
+                $.on(app, 'add', function(e) {
+                    var items = $.queryAll('.todo-items', app)[0],
+                        todo = $.queryAll('input', app)[0];
+                    var item = document.createElement('li');
+                    item.innerHTML = '<li>' + todo.value + '<button>X</button></li>'
+                    items.appendChild(item);
+                    todo.value = '';
+                });
+                $.on(app, 'delete', function(e) {
+
+                });
+
+                $.trigger(app, 'create');
+            });
+        </script>
+    </body>
+</html>
