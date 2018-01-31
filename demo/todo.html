@@ -27,7 +27,11 @@
                     }
                 ];
 
-                var app = $.queryAll('#todo-app')[0];
+                var app = $.queryAll('#todo-app')[0],
+                    app_add_elem = null,
+                    app_items_elem = null,
+                    app_del_buttons = null;
+
                 $.on(app, 'create', function(e) {
                     var html = '<input placeholder="Add a todo">',
                         todo = {};
@@ -40,23 +44,30 @@
                     html += '</ul>'
                     app.innerHTML = html;
 
-                    var newTodo = $.queryAll('#todo-app input')[0];
-                    $.on(newTodo, 'keyup', function(e) {
+                    app_add_elem = $.queryAll('input', app)[0];
+                    $.on(app_add_elem, 'keyup', function(e) {
                         if (e.keyCode && e.keyCode === 13) {
                             $.trigger(app, 'add');
                         }
                     });
+
+                    app_items_elem = $.queryAll('ul', app)[0];
+                    $.on(app_items_elem, 'click', function(e) {
+                        if (e.target.nodeName === 'BUTTON') {
+                            $.trigger(app, 'del', [e]);
+                        }
+                    });
                 });
                 $.on(app, 'add', function(e) {
-                    var items = $.queryAll('.todo-items', app)[0],
-                        todo = $.queryAll('input', app)[0];
-                    var item = document.createElement('li');
-                    item.innerHTML = '<li>' + todo.value + '<button>X</button></li>'
-                    items.appendChild(item);
-                    todo.value = '';
-                });
-                $.on(app, 'delete', function(e) {
+                    var html = '';
 
+                    html = app_items_elem.innerHTML;
+                    html += '<li>' + app_add_elem.value + '<button>X</button></li>'
+                    app_items_elem.innerHTML = html;
+                    app_add_elem.value = '';
+                });
+                $.on(app, 'del', function(e) {
+                    e.target.parentNode.parentNode.removeChild(e.target.parentNode);
                 });
 
                 $.trigger(app, 'create');
