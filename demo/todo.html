@@ -39,7 +39,7 @@
                     html += '<ul class="todo-items">';
                     for (var i = 0; i < data.length; i++) {
                         todo = data[i];
-                        html += '<li>' + todo.title + '<button>X</button>' + '</li>';
+                        html += '<li>' + todo.title + '<button type="button">X</button>' + '</li>';
                     }
                     html += '</ul>'
                     app.innerHTML = html;
@@ -62,7 +62,7 @@
                     var html = '';
 
                     html = app_items_elem.innerHTML;
-                    html += '<li>' + app_add_elem.value + '<button>X</button></li>'
+                    html += '<li>' + app_add_elem.value + '<button type="button">X</button></li>'
                     app_items_elem.innerHTML = html;
                     app_add_elem.value = '';
                 });
