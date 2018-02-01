@@ -27,10 +27,9 @@
                     }
                 ];
 
-                var app = $.queryAll('#todo-app')[0],
+                var app = $.query('#todo-app'),
                     app_add_elem = null,
-                    app_items_elem = null,
-                    app_del_buttons = null;
+                    app_items_elem = null;
 
                 $.on(app, 'create', function(e) {
                     var html = '<input placeholder="Add a todo">',
@@ -44,14 +43,14 @@
                     html += '</ul>'
                     app.innerHTML = html;
 
-                    app_add_elem = $.queryAll('input', app)[0];
+                    app_add_elem = $.query('input', app);
                     $.on(app_add_elem, 'keyup', function(e) {
                         if (e.keyCode && e.keyCode === 13) {
                             $.trigger(app, 'add');
                         }
                     });
 
-                    app_items_elem = $.queryAll('ul', app)[0];
+                    app_items_elem = $.query('ul', app);
                     $.on(app_items_elem, 'click', function(e) {
                         if (e.target.nodeName === 'BUTTON') {
                             $.trigger(app, 'del', [e]);

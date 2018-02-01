@@ -141,6 +141,8 @@
 			context = context || document;
 			if (context.querySelector) {
 				elem = context.querySelector(selectors);
+			} else {
+				elem = this.queryAll(selectors, context)[0];
 			}
 			return elem;
 		},
