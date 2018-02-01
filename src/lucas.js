@@ -183,8 +183,16 @@
 
 	// Lucas events system
 	Lucas.extend(Lucas, {
-		on: function(elem, type, handler) {
-			Lucas.event.add(elem, type, handler);
+		on: function(elem, types, handler) {
+			var type;
+			if (typeof types === 'object') {
+				for (type in types) {
+					Lucas.on(elem, type, types[type]);
+				}
+			} else {
+				Lucas.event.add(elem, types, handler);
+			}
+
 		},
 		off: function(elem, type, handler) {
 			if (arguments.length === 1) {
