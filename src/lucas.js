@@ -1,6 +1,7 @@
 define([
 		'./core',
-		'./selector'
+		'./selector',
+		'./event'
 ], function(Lucas) {
 	return (window.$ = window.Lucas = Lucas);
 });
