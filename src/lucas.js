@@ -185,6 +185,7 @@
 	Lucas.extend(Lucas, {
 		on: function(elem, types, handler) {
 			var type;
+			// Types can be a map of types/handlers
 			if (typeof types === 'object') {
 				for (type in types) {
 					Lucas.on(elem, type, types[type]);
@@ -297,6 +298,12 @@
 				elem.className = _class.replace(className, '');
 			}
 			elem.className = $.trim(elem.className);
+		},
+		html: function(elem, value) {
+			if (value === undefined) {
+				return elem.innerHTML;
+			}
+			elem.innerHTML = value;
 		}
 	});
 

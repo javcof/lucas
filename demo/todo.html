@@ -42,7 +42,7 @@
                             html += '<li>' + todo.title + '<button type="button">X</button>' + '</li>';
                         }
                         html += '</ul>'
-                        app.innerHTML = html;
+                        $.html(app, html);
 
                         app_add_elem = $.query('input', app);
                         $.on(app_add_elem, 'keyup', function(e) {
@@ -61,9 +61,9 @@
                     add: function(e) {
                         var html = '';
 
-                        html = app_items_elem.innerHTML;
+                        html = $.html(app_items_elem);
                         html += '<li>' + app_add_elem.value + '<button type="button">X</button></li>'
-                        app_items_elem.innerHTML = html;
+                        $.html(app_items_elem, html);
                         app_add_elem.value = '';
                     },
                     del: function(e) {
